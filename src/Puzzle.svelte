@@ -267,7 +267,7 @@
     width: 100%;
     display: block;
     font-size: 1px;
-    background-color: #000;
+    background-color: #333333;
     border: 1px solid black;
     box-sizing: border-box;
   }
@@ -275,6 +275,11 @@
   .keyboard {
     margin-top: 1rem;
     order: -1;
+  }
+
+  /* overide svelte-keyboard default font */
+  :global(.keyboard .page button) {
+    font-family: var(--ds-type-system-sans);
   }
 
   @media only screen and (max-width: 720px) {

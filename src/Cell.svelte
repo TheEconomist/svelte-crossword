@@ -102,7 +102,8 @@
   tabIndex="0"
   on:click="{onClick}"
   on:keydown="{onKeydown}"
-  bind:this="{element}">
+  bind:this="{element}"
+>
   <rect width="1" height="1"></rect>
 
   {#if showCheck && !correct}
@@ -111,11 +112,16 @@
 
   {#if value}
     <text
-      transition:pop="{{ y: 5, delay: changeDelay, duration: isRevealing ? 250 : 0 }}"
+      transition:pop="{{
+        y: 5,
+        delay: changeDelay,
+        duration: isRevealing ? 250 : 0,
+      }}"
       class="value"
       x="0.5"
-      y="0.9"
-      text-anchor="middle">
+      y="0.7"
+      text-anchor="middle"
+    >
       {value}
     </text>
   {/if}
@@ -143,7 +149,7 @@
   text {
     pointer-events: none;
     line-height: 1;
-    font-family: var(--font);
+    font-family: var(--ds-type-system-sans-smallcaps);
     fill: var(--main-color);
   }
 
@@ -155,8 +161,7 @@
   .number {
     font-size: 0.3em;
     font-weight: 400;
-    fill: var(--main-color);
-    opacity: 0.5;
+    fill: #333333;
   }
 
   rect {

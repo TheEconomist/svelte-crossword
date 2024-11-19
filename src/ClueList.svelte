@@ -36,11 +36,15 @@
     margin-bottom: 2em;
     overflow: auto;
   }
+
+  .list-container {
+    width: 50%;
+  }
   p {
     font-family: var(--font);
     color: var(--main-color);
     font-weight: 700;
-    text-transform: uppercase;
+    text-transform: capitalize;
     padding-bottom: 0.5em;
     font-size: 17px;
     border-bottom: 1px solid black;
@@ -83,5 +87,11 @@
   ::-webkit-scrollbar-thumb {
     background-color: var(--scrollbar-color);
     border-radius: 6px;
+  }
+
+  @media (max-width: 800px) {
+    .list-container {
+      width: 100%;
+    }
   }
 </style>

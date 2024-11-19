@@ -26,7 +26,8 @@
   <div
     class="curtain"
     transition:fade="{{ duration: 250 }}"
-    on:click="{() => (isOpen = false)}"></div>
+    on:click="{() => (isOpen = false)}"
+  ></div>
 {/if}
 
 <style>
@@ -38,7 +39,8 @@
     transform: translate(-50%, -50%);
     border-radius: 4px;
     z-index: 100;
-    box-shadow: 0 4px 8px 4px rgba(0, 0, 0, 0.2);
+    border: 1px solid black;
+    box-shadow: 0 4px 8px 4px rgba(0, 0, 0, 0.1);
     font-family: var(--font);
   }
 
@@ -56,7 +58,6 @@
 
   button {
     cursor: pointer;
-    margin-left: 1em;
     font-size: 1em;
     font-family: var(--font);
     background-color: var(--accent-color);
@@ -66,6 +67,8 @@
     border: none;
     font-weight: 400;
     transition: background-color 150ms;
+    outline: 1px solid #cacaca;
+    margin-top: 1rem;
   }
 
   button:hover {
@@ -77,11 +80,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     padding: 2em;
   }
 
   .message {
-    margin-bottom: 1em;
+    display: flex;
+    justify-content: center;
   }
 
   .confetti {

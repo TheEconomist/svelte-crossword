@@ -24,7 +24,11 @@
         <polyline points="15 18 9 12 15 6"></polyline>
       </svg>
     </button>
-    <p>{clue}</p>
+    <p>
+      <span class="currentClue"
+        >{currentClue.number + " " + currentClue.direction}</span
+      >{clue}
+    </p>
     <button on:click="{() => dispatch('nextClue', currentClue.index + 1)}">
       <svg
         width="24"
@@ -63,6 +67,12 @@
     width: 600px;
     justify-content: space-between;
     align-items: flex-start;
+  }
+
+  .currentClue {
+    margin-right: 0.5rem;
+    text-transform: capitalize;
+    font-weight: 600;
   }
 
   p {

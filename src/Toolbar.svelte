@@ -24,7 +24,7 @@
     display: flex;
     justify-content: center;
     font-family: var(--font);
-    font-size: 0.85em;
+    font-size: 15px;
     background-color: transparent;
   }
 
@@ -36,7 +36,7 @@
     background-color: var(--accent-color);
     border-radius: 4px;
     color: var(--main-color);
-    padding: 0.4rem 0.75rem;
+    padding: 0.4rem 1rem;
     border: 1px solid #cacaca;
     font-weight: 400;
     transition: background-color 150ms;
