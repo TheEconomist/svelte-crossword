@@ -42,7 +42,6 @@
       ? a.x - b.x || a.y - b.y
       : a.y - b.y || a.x - b.x,
   );
-
   onMount(() => {
     isMobile = checkMobile();
   });

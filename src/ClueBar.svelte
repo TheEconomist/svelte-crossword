@@ -3,6 +3,7 @@
   const dispatch = createEventDispatcher();
 
   export let currentClue = {};
+  export let explanation;
   $: clue = currentClue["clue"];
   $: custom = currentClue["custom"] || "";
 </script>
@@ -24,11 +25,14 @@
         <polyline points="15 18 9 12 15 6"></polyline>
       </svg>
     </button>
-    <p>
-      <span class="currentClue"
-        >{currentClue.number + " " + currentClue.direction}</span
-      >{clue}
-    </p>
+    <div class="clueContainer">
+      <p>
+        <span class="currentClue"
+          >{currentClue.number + " " + currentClue.direction}</span
+        >{clue}
+      </p>
+    </div>
+
     <button on:click="{() => dispatch('nextClue', currentClue.index + 1)}">
       <svg
         width="24"
@@ -45,6 +49,9 @@
       </svg>
     </button>
   </div>
+  <div class="explanationContainer">
+    <p>{explanation}</p>
+  </div>
 </div>
 
 <style>
@@ -52,6 +59,7 @@
     width: 100%;
     margin: 0 auto;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     background-color: white;
     align-items: center;
@@ -75,7 +83,13 @@
     font-weight: 600;
   }
 
-  p {
+  .explanationContainer {
+    font-size: 15px;
+    margin-bottom: 2rem;
+    color: var(--ds-color-london-35);
+  }
+
+  .clueContainer {
     padding: 0 1em;
     line-height: 1.325;
     font-family: var(--font);

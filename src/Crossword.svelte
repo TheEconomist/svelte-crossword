@@ -10,8 +10,10 @@
   import { fromPairs } from "./helpers/utils.js";
   import themeStyles from "./helpers/themeStyles.js";
 
+  import getSecondarilyFocusedCells from "./helpers/getSecondarilyFocusedCells.js";
+
   export let data = [];
-  export let actions = ["clear", "reveal", "check"];
+  export let actions = ["clear", "reveal", "check", "explanation"];
   export let theme = "classic";
   export let revealDuration = 1000;
   export let breakpoint = 800;
@@ -35,6 +37,8 @@
   let validated = [];
   let clues = [];
   let cells = [];
+
+  let explanation;
 
   const onDataUpdate = () => {
     originalClues = createClues(data);
@@ -84,8 +88,9 @@
   function reset() {
     isRevealing = false;
     isChecking = false;
-    focusedCellIndex = 0;
+    // focusedCellIndex = 0;
     focusedDirection = "across";
+    explanation = "";
   }
 
   function onClear() {
@@ -97,13 +102,31 @@
     }));
   }
 
+  $: focusedClue = clues.find(
+    (c) =>
+      c.cells.some((cell) => cell.id === focusedCell.id) &&
+      c.direction == focusedDirection,
+  );
+
+  // function onReveal() {
+  //   if (revealed) return true;
+  //   reset();
+  //   cells = cells.map((cell) => ({
+  //     ...cell,
+  //     value: cell.answer,
+  //   }));
+  //   startReveal();
+  // }
+
   function onReveal() {
     if (revealed) return true;
     reset();
+    const focusedCellIds = focusedClue.cells.map((cell) => cell.id);
     cells = cells.map((cell) => ({
       ...cell,
-      value: cell.answer,
+      value: focusedCellIds.includes(cell.id) ? cell.answer : cell.value,
     }));
+
     startReveal();
   }
 
@@ -120,10 +143,16 @@
     }, revealDuration + 250);
   }
 
+  function onExplanation() {
+    reset();
+    explanation = focusedClue.explanation;
+  }
+
   function onToolbarEvent({ detail }) {
     if (detail === "clear") onClear();
     else if (detail === "reveal") onReveal();
     else if (detail === "check") onCheck();
+    else if (detail === "explanation") onExplanation();
   }
 </script>
 
@@ -133,13 +162,14 @@
     bind:offsetWidth="{width}"
     style="{inlineStyles}"
   >
-    <slot name="toolbar" {onClear} {onReveal} {onCheck}>
+    <slot name="toolbar" {onClear} {onReveal} {onCheck} {onExplanation}>
       <Toolbar {actions} on:event="{onToolbarEvent}" />
     </slot>
 
     <div class="play" class:stacked class:is-loaded="{isLoaded}">
       <Clues
         {clues}
+        {explanation}
         {cellIndexMap}
         {stacked}
         {isDisableHighlight}

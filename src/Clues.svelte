@@ -3,6 +3,7 @@
   import ClueBar from "./ClueBar.svelte";
 
   export let clues;
+  export let explanation;
   export let cellIndexMap;
   export let focusedDirection;
   export let focusedCellIndex;
@@ -35,7 +36,7 @@
 
 <section class="clues" class:stacked class:is-loaded="{isLoaded}">
   <div class="clues--stacked">
-    <ClueBar {currentClue} on:nextClue="{onNextClue}" />
+    <ClueBar {currentClue} on:nextClue="{onNextClue}" {explanation} />
     {#each ["across", "down"] as direction}
       <ClueList
         {direction}
