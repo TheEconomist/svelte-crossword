@@ -72,7 +72,7 @@
     padding-top: 1rem;
 
     display: flex;
-    width: 600px;
+    width: 100%;
     justify-content: space-between;
     align-items: flex-start;
   }

@@ -10,13 +10,11 @@
     {#if action === "clear"}
       <button on:click="{() => dispatch('event', 'clear')}">Clear</button>
     {:else if action === "reveal"}
-      <button on:click="{() => dispatch('event', 'reveal')}">Show answer</button
-      >
+      <button on:click="{() => dispatch('event', 'reveal')}">Answer</button>
     {:else if action === "check"}
       <button on:click="{() => dispatch('event', 'check')}">Check</button>
     {:else if action === "explanation"}
-      <button on:click="{() => dispatch('event', 'explanation')}"
-        >Show explanation</button
+      <button on:click="{() => dispatch('event', 'explanation')}">Reveal</button
       >
     {/if}
   {/each}
