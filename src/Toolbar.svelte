@@ -7,11 +7,11 @@
 
 <div class="toolbar">
   {#each actions as action}
-    {#if action === 'clear'}
+    {#if action === "clear"}
       <button on:click="{() => dispatch('event', 'clear')}">Clear</button>
-    {:else if action === 'reveal'}
+    {:else if action === "reveal"}
       <button on:click="{() => dispatch('event', 'reveal')}">Reveal</button>
-    {:else if action === 'check'}
+    {:else if action === "check"}
       <button on:click="{() => dispatch('event', 'check')}">Check</button>
     {/if}
   {/each}
@@ -22,7 +22,7 @@
     margin-bottom: 1em;
     padding: 1em 0;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     font-family: var(--font);
     font-size: 0.85em;
     background-color: transparent;
@@ -36,8 +36,8 @@
     background-color: var(--accent-color);
     border-radius: 4px;
     color: var(--main-color);
-    padding: 0.75em;
-    border: none;
+    padding: 0.4rem 0.75rem;
+    border: 1px solid #cacaca;
     font-weight: 400;
     transition: background-color 150ms;
   }

@@ -14,9 +14,9 @@
   $: focusedClueNumbers = focusedCell.clueNumbers || {};
   $: currentClue =
     clues.find(
-      c =>
+      (c) =>
         c.direction === focusedDirection &&
-        c.number === focusedClueNumbers[focusedDirection]
+        c.number === focusedClueNumbers[focusedDirection],
     ) || {};
 
   function onClueFocus({ direction, id }) {
@@ -36,17 +36,28 @@
 <section class="clues" class:stacked class:is-loaded="{isLoaded}">
   <div class="clues--stacked">
     <ClueBar {currentClue} on:nextClue="{onNextClue}" />
-  </div>
-
-  <div class="clues--list">
-    {#each ['across', 'down'] as direction}
+    {#each ["across", "down"] as direction}
       <ClueList
         {direction}
         {focusedClueNumbers}
-        clues="{clues.filter(d => d.direction === direction)}"
+        clues="{clues.filter((d) => d.direction === direction)}"
         isDirectionFocused="{focusedDirection === direction}"
         {isDisableHighlight}
-        {onClueFocus} />
+        {onClueFocus}
+      />
+    {/each}
+  </div>
+
+  <div class="clues--list">
+    {#each ["across", "down"] as direction}
+      <ClueList
+        {direction}
+        {focusedClueNumbers}
+        clues="{clues.filter((d) => d.direction === direction)}"
+        isDirectionFocused="{focusedDirection === direction}"
+        {isDisableHighlight}
+        {onClueFocus}
+      />
     {/each}
   </div>
 </section>
@@ -66,17 +77,19 @@
     height: auto;
     top: auto;
     display: block;
-    margin: 1em 0;
+    margin: 2em 0;
     flex: auto;
   }
 
   .clues--stacked {
     margin: 0;
     display: none;
+    order: -1;
   }
 
   .is-loaded.stacked .clues--stacked {
-    display: block;
+    display: inline-flex;
+    gap: 2rem;
   }
 
   .is-loaded.stacked .clues--list {
@@ -91,6 +104,11 @@
       display: block;
       margin: 1em 0;
       flex: auto;
+    }
+
+    .is-loaded.stacked .clues--stacked {
+      display: block;
+      gap: 0;
     }
 
     .clues--stacked:not(.is-loaded) {

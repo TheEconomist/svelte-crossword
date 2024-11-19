@@ -8,50 +8,68 @@
 </script>
 
 <div class="bar {custom}">
-  <button on:click="{() => dispatch('nextClue', currentClue.index - 1)}">
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="feather feather-chevron-left">
-      <polyline points="15 18 9 12 15 6"></polyline>
-    </svg>
-  </button>
-  <p>{clue}</p>
-  <button on:click="{() => dispatch('nextClue', currentClue.index + 1)}">
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="feather feather-chevron-right">
-      <polyline points="9 18 15 12 9 6"></polyline>
-    </svg>
-  </button>
+  <div class="bar-inner">
+    <button on:click="{() => dispatch('nextClue', currentClue.index - 1)}">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="feather feather-chevron-left"
+      >
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+    <p>{clue}</p>
+    <button on:click="{() => dispatch('nextClue', currentClue.index + 1)}">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="feather feather-chevron-right"
+      >
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+  </div>
 </div>
 
 <style>
   .bar {
     width: 100%;
+    margin: 0 auto;
     display: flex;
-    justify-content: space-between;
-    background-color: var(--secondary-highlight-color);
+    justify-content: center;
+    background-color: white;
     align-items: center;
+    position: absolute;
+    top: 4rem;
+  }
+
+  .bar-inner {
+    border-top: 1px solid #cacaca;
+    padding-top: 1rem;
+
+    display: flex;
+    width: 600px;
+    justify-content: space-between;
+    align-items: flex-start;
   }
 
   p {
     padding: 0 1em;
     line-height: 1.325;
     font-family: var(--font);
+    font-size: 20px;
   }
 
   button {
@@ -61,5 +79,13 @@
     line-height: 1;
     color: var(--main-color);
     background-color: transparent;
+  }
+
+  @media (max-width: 720px) {
+    p {
+      font-size: 17px;
+      text-align: center;
+      text-wrap: balance;
+    }
   }
 </style>

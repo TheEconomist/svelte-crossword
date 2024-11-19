@@ -38,7 +38,9 @@
 
   $: cells, focusedCellIndex, focusedDirection, updateSecondarilyFocusedCells();
   $: sortedCellsInDirection = [...cells].sort((a, b) =>
-    focusedDirection == "down" ? a.x - b.x || a.y - b.y : a.y - b.y || a.x - b.x
+    focusedDirection == "down"
+      ? a.x - b.x || a.y - b.y
+      : a.y - b.y || a.x - b.x,
   );
 
   onMount(() => {
@@ -61,7 +63,7 @@
     const cellsInClue = cells.filter(
       (cell) =>
         cell.clueNumbers[focusedDirection] == clueIndex &&
-        (doReplaceFilledCells || !cell.value)
+        (doReplaceFilledCells || !cell.value),
     );
     const cellsInCluePositions = cellsInClue
       .map((cell) => cell[dimension])
@@ -76,7 +78,7 @@
     ];
     cellsHistory = [newCells, ...cellsHistory.slice(cellsHistoryIndex)].slice(
       0,
-      numberOfStatesInHistory
+      numberOfStatesInHistory,
     );
     cellsHistoryIndex = 0;
     cells = newCells;
@@ -101,10 +103,10 @@
       onFlipDirection();
     } else {
       focusedCellIndex = index;
-      
+
       if (!cells[focusedCellIndex].clueNumbers[focusedDirection]) {
         const newDirection = focusedDirection === "across" ? "down" : "across";
-        focusedDirection = newDirection
+        focusedDirection = newDirection;
       }
 
       focusedCellIndexHistory = [
@@ -117,10 +119,10 @@
 
   function onFocusCellDiff(diff, doReplaceFilledCells = true) {
     const sortedCellsInDirectionFiltered = sortedCellsInDirection.filter((d) =>
-      doReplaceFilledCells ? true : !d.value
+      doReplaceFilledCells ? true : !d.value,
     );
     const currentCellIndex = sortedCellsInDirectionFiltered.findIndex(
-      (d) => d.index == focusedCellIndex
+      (d) => d.index == focusedCellIndex,
     );
     const nextCellIndex = (
       sortedCellsInDirectionFiltered[currentCellIndex + diff] || {}
@@ -138,7 +140,7 @@
         (diff > 0
           ? clue.number > currentNumber
           : clue.number < currentNumber) &&
-        clue.direction == focusedDirection
+        clue.direction == focusedDirection,
     );
     if (diff < 0) {
       nextCluesInDirection = nextCluesInDirection.reverse();
@@ -151,7 +153,7 @@
     const nextFocusedCell =
       sortedCellsInDirection.find(
         (cell) =>
-          !cell.value && cell.clueNumbers[focusedDirection] == nextClue.number
+          !cell.value && cell.clueNumbers[focusedDirection] == nextClue.number,
       ) || {};
     focusedCellIndex = nextFocusedCell.index || 0;
   }
@@ -195,30 +197,37 @@
   class="puzzle"
   class:stacked
   class:is-loaded="{isLoaded}"
-  bind:this="{element}">
-  <svg viewBox="0 0 {w} {h}">
-    {#each cells as { x, y, value, answer, index, number, custom }}
-      <Cell
-        x="{x}"
-        y="{y}"
-        index="{index}"
-        value="{value}"
-        answer="{answer}"
-        number="{number}"
-        custom="{custom}"
-        changeDelay="{isRevealing ? (revealDuration / cells.length) * index : 0}"
-        isRevealing="{isRevealing}"
-        isChecking="{isChecking}"
-        isFocused="{focusedCellIndex == index && !isDisableHighlight}"
-        isSecondarilyFocused="{secondarilyFocusedCells.includes(index) && !isDisableHighlight}"
-        onFocusCell="{onFocusCell}"
-        onCellUpdate="{onCellUpdate}"
-        onFocusClueDiff="{onFocusClueDiff}"
-        onMoveFocus="{onMoveFocus}"
-        onFlipDirection="{onFlipDirection}"
-        onHistoricalChange="{onHistoricalChange}" />
-    {/each}
-  </svg>
+  bind:this="{element}"
+>
+  <div class="puzzle-container">
+    <svg viewBox="0 0 {w} {h}">
+      {#each cells as { x, y, value, answer, index, number, custom }}
+        <Cell
+          {x}
+          {y}
+          {index}
+          {value}
+          {answer}
+          {number}
+          {custom}
+          changeDelay="{isRevealing
+            ? (revealDuration / cells.length) * index
+            : 0}"
+          {isRevealing}
+          {isChecking}
+          isFocused="{focusedCellIndex == index && !isDisableHighlight}"
+          isSecondarilyFocused="{secondarilyFocusedCells.includes(index) &&
+            !isDisableHighlight}"
+          {onFocusCell}
+          {onCellUpdate}
+          {onFocusClueDiff}
+          {onMoveFocus}
+          {onFlipDirection}
+          {onHistoricalChange}
+        />
+      {/each}
+    </svg>
+  </div>
 </section>
 
 {#if keyboardVisible}
@@ -226,7 +235,8 @@
     <Keyboard
       layout="crossword"
       style="{keyboardStyle}"
-      on:keydown="{onKeydown}" />
+      on:keydown="{onKeydown}"
+    />
   </div>
 {/if}
 
@@ -246,17 +256,25 @@
     order: -1;
   }
 
+  .puzzle-container {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+  }
+
   svg {
     width: 100%;
     display: block;
     font-size: 1px;
-    background: var(--main-color);
-    border: 4px solid var(--main-color);
+    background-color: #000;
+    border: 1px solid black;
     box-sizing: border-box;
   }
 
   .keyboard {
-    order: 3;
+    margin-top: 1rem;
+    order: -1;
   }
 
   @media only screen and (max-width: 720px) {

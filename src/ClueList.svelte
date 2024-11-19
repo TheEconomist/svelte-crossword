@@ -9,21 +9,24 @@
   export let isDisableHighlight;
 </script>
 
-<p>{direction}</p>
-<div class="list">
-  <ul>
-    {#each clues as clue}
-      <Clue
-        clue="{clue.clue}"
-        number="{clue.number}"
-        custom="{clue.custom}"
-        isFilled="{clue.isFilled}"
-        isNumberFocused="{focusedClueNumbers[direction] === clue.number}"
-        isDirectionFocused="{isDirectionFocused}"
-        isDisableHighlight="{isDisableHighlight}"
-        onFocus="{() => onClueFocus(clue)}" />
-    {/each}
-  </ul>
+<div class="list-container">
+  <p class="header">{direction}</p>
+  <div class="list">
+    <ul>
+      {#each clues as clue}
+        <Clue
+          clue="{clue.clue}"
+          number="{clue.number}"
+          custom="{clue.custom}"
+          isFilled="{clue.isFilled}"
+          isNumberFocused="{focusedClueNumbers[direction] === clue.number}"
+          {isDirectionFocused}
+          {isDisableHighlight}
+          onFocus="{() => onClueFocus(clue)}"
+        />
+      {/each}
+    </ul>
+  </div>
 </div>
 
 <style>
@@ -33,16 +36,14 @@
     margin-bottom: 2em;
     overflow: auto;
   }
-
   p {
     font-family: var(--font);
     color: var(--main-color);
     font-weight: 700;
     text-transform: uppercase;
-    padding-left: calc(2.5em + 6px);
     padding-bottom: 0.5em;
-    font-size: 0.85em;
-    border-bottom: 1px solid var(--accent-color);
+    font-size: 17px;
+    border-bottom: 1px solid black;
     margin: 0;
   }
 

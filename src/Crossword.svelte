@@ -14,11 +14,11 @@
   export let actions = ["clear", "reveal", "check"];
   export let theme = "classic";
   export let revealDuration = 1000;
-  export let breakpoint = 720;
+  export let breakpoint = 800;
   export let revealed = false;
   export let disableHighlight = false;
   export let showCompleteMessage = true;
-  export let showConfetti = true;
+  export let showConfetti = false;
   export let showKeyboard;
   export let keyboardStyle = "outline";
 
@@ -53,7 +53,7 @@
   $: isDisableHighlight = isComplete && disableHighlight;
   $: cells, (clues = checkClues());
   $: cells, (revealed = !clues.filter((d) => !d.isCorrect).length);
-  $: stacked = width < breakpoint;
+  $: stacked = true;
   $: inlineStyles = themeStyles[theme];
 
   onMount(() => {
@@ -131,43 +131,42 @@
   <article
     class="svelte-crossword"
     bind:offsetWidth="{width}"
-    style="{inlineStyles}">
-    <slot
-      name="toolbar"
-      onClear="{onClear}"
-      onReveal="{onReveal}"
-      onCheck="{onCheck}">
-      <Toolbar actions="{actions}" on:event="{onToolbarEvent}" />
+    style="{inlineStyles}"
+  >
+    <slot name="toolbar" {onClear} {onReveal} {onCheck}>
+      <Toolbar {actions} on:event="{onToolbarEvent}" />
     </slot>
 
     <div class="play" class:stacked class:is-loaded="{isLoaded}">
       <Clues
-        clues="{clues}"
-        cellIndexMap="{cellIndexMap}"
-        stacked="{stacked}"
-        isDisableHighlight="{isDisableHighlight}"
-        isLoaded="{isLoaded}"
+        {clues}
+        {cellIndexMap}
+        {stacked}
+        {isDisableHighlight}
+        {isLoaded}
         bind:focusedCellIndex
         bind:focusedCell
-        bind:focusedDirection />
+        bind:focusedDirection
+      />
       <Puzzle
-        clues="{clues}"
-        focusedCell="{focusedCell}"
-        isRevealing="{isRevealing}"
-        isChecking="{isChecking}"
-        isDisableHighlight="{isDisableHighlight}"
-        revealDuration="{revealDuration}"
-        showKeyboard="{showKeyboard}"
-        stacked="{stacked}"
-        isLoaded="{isLoaded}"
-        keyboardStyle="{keyboardStyle}"
+        {clues}
+        {focusedCell}
+        {isRevealing}
+        {isChecking}
+        {isDisableHighlight}
+        {revealDuration}
+        {showKeyboard}
+        {stacked}
+        {isLoaded}
+        {keyboardStyle}
         bind:cells
         bind:focusedCellIndex
-        bind:focusedDirection />
+        bind:focusedDirection
+      />
     </div>
 
     {#if isComplete && !isRevealing && showCompleteMessage}
-      <CompletedMessage showConfetti="{showConfetti}">
+      <CompletedMessage {showConfetti}>
         <slot name="message">
           <h3>You solved it!</h3>
         </slot>
@@ -185,6 +184,7 @@
 
   .play {
     display: flex;
+    margin-top: 5rem;
     flex-direction: var(--order, row);
   }
 

@@ -22,13 +22,17 @@
     class:is-number-focused="{isNumberFocused}"
     class:is-direction-focused="{isDirectionFocused}"
     class:is-filled="{isFilled}"
-    on:click="{onFocus}">
+    on:click="{onFocus}"
+  >
     <strong>{number}</strong>
     {clue}
   </button>
 </li>
 
 <style>
+  li:not(:first-child) {
+    border-top: 1px solid #cacaca;
+  }
   button {
     display: flex;
     width: 100%;
@@ -43,15 +47,16 @@
     line-height: 1.325;
     color: var(--main-color);
     font-family: var(--font);
-    font-size: 1em;
+    font-size: 17px;
     cursor: pointer;
   }
 
   strong {
     min-width: 1.25em;
     display: inline-block;
-    text-align: right;
+    text-align: left;
     margin-right: 0.5em;
+    font-weight: 600;
   }
 
   .clue:focus:not(.is-disable-highlight) {
@@ -61,7 +66,7 @@
     border-left-color: var(--secondary-highlight-color);
   }
   .is-number-focused.is-direction-focused:not(.is-disable-highlight) {
-    background: var(--secondary-highlight-color);
+    background: #fee7e7;
   }
   .is-filled {
     opacity: 0.5;

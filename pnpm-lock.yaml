@@ -1,0 +1,28 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  svelte:
+    specifier: ^3.29.0
+    version: 3.59.2
+  svelte-keyboard:
+    specifier: 0.2.0
+    version: 0.2.0(svelte@3.59.2)
+
+packages:
+
+  /svelte-keyboard@0.2.0(svelte@3.59.2):
+    resolution: {integrity: sha512-4McKxV/IKp+7v4X+D521392OU2RYGZAI5thV2/VtEfgG/WMTpjc/Zu7npqCEajdwptFueyhyZfLf8LrQsRaMvw==}
+    peerDependencies:
+      svelte: ^3.29.0
+    dependencies:
+      svelte: 3.59.2
+    dev: false
+
+  /svelte@3.59.2:
+    resolution: {integrity: sha512-vzSyuGr3eEoAtT/A6bmajosJZIUWySzY2CzB3w2pgPvnkUjGqlDnsNnA0PMO+mMAhuyMul6C2uuZzY6ELSkzyA==}
+    engines: {node: '>= 8'}
+    dev: false
