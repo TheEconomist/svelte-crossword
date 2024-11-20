@@ -150,7 +150,7 @@
     pointer-events: none;
     line-height: 1;
     font-family: var(--ds-type-system-sans-smallcaps);
-    fill: var(--main-color);
+    fill: var(--ds-color-london-20);
   }
 
   .value {

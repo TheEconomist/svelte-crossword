@@ -245,7 +245,7 @@
   }
 
   .clueBar {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
 
   .play.is-loaded.stacked {

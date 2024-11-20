@@ -31,6 +31,11 @@
           >{currentClue.number + " " + currentClue.direction}</span
         >{clue}
       </p>
+      {#if showExplanation}
+        <div class="explanationContainer">
+          <p>{currentClue.explanation}</p>
+        </div>
+      {/if}
     </div>
 
     <button on:click="{() => dispatch('nextClue', currentClue.index + 1)}">
@@ -49,11 +54,6 @@
       </svg>
     </button>
   </div>
-  {#if showExplanation}
-    <div class="explanationContainer">
-      <p>{currentClue.explanation}</p>
-    </div>
-  {/if}
 </div>
 
 <style>
@@ -72,7 +72,6 @@
   .bar-inner {
     border-top: 1px solid #cacaca;
     padding-top: 1rem;
-
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -87,9 +86,9 @@
 
   .explanationContainer {
     font-size: 15px;
-    margin-bottom: 2rem;
+    width: 100%;
     color: var(--ds-color-london-35);
-    margin: 0.5rem 0;
+    margin-top: 0.5rem;
   }
 
   .clueContainer {
@@ -97,6 +96,7 @@
     line-height: 1.325;
     font-family: var(--font);
     font-size: 20px;
+    text-wrap: pretty;
   }
 
   button {
