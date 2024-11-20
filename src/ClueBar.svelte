@@ -3,7 +3,7 @@
   const dispatch = createEventDispatcher();
 
   export let currentClue = {};
-  export let explanation;
+  export let showExplanation;
   $: clue = currentClue["clue"];
   $: custom = currentClue["custom"] || "";
 </script>
@@ -49,21 +49,23 @@
       </svg>
     </button>
   </div>
-  <div class="explanationContainer">
-    <p>{explanation}</p>
-  </div>
+  {#if showExplanation}
+    <div class="explanationContainer">
+      <p>{currentClue.explanation}</p>
+    </div>
+  {/if}
 </div>
 
 <style>
   .bar {
-    width: 100%;
+    max-width: 600px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     background-color: white;
     align-items: center;
-    position: absolute;
+    /* position: absolute; */
     top: 4rem;
   }
 
@@ -87,6 +89,7 @@
     font-size: 15px;
     margin-bottom: 2rem;
     color: var(--ds-color-london-35);
+    margin: 0.5rem 0;
   }
 
   .clueContainer {
@@ -106,7 +109,7 @@
   }
 
   @media (max-width: 720px) {
-    p {
+    .clueContainer {
       font-size: 17px;
       text-align: center;
       text-wrap: balance;

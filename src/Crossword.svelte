@@ -9,6 +9,7 @@
   import validateClues from "./helpers/validateClues.js";
   import { fromPairs } from "./helpers/utils.js";
   import themeStyles from "./helpers/themeStyles.js";
+  import ClueBar from "./ClueBar.svelte";
 
   import getSecondarilyFocusedCells from "./helpers/getSecondarilyFocusedCells.js";
 
@@ -30,6 +31,7 @@
   let isRevealing = false;
   let isLoaded = false;
   let isChecking = false;
+  let showExplanation = false;
   let revealTimeout;
   let clueCompletion;
 
@@ -37,8 +39,6 @@
   let validated = [];
   let clues = [];
   let cells = [];
-
-  let explanation;
 
   const onDataUpdate = () => {
     originalClues = createClues(data);
@@ -90,7 +90,7 @@
     isChecking = false;
     // focusedCellIndex = 0;
     focusedDirection = "across";
-    explanation = "";
+    showExplanation = false;
   }
 
   function onClear() {
@@ -145,7 +145,7 @@
 
   function onExplanation() {
     reset();
-    explanation = focusedClue.explanation;
+    showExplanation = true;
   }
 
   function onToolbarEvent({ detail }) {
@@ -153,6 +153,28 @@
     else if (detail === "reveal") onReveal();
     else if (detail === "check") onCheck();
     else if (detail === "explanation") onExplanation();
+  }
+
+  $: focusedClueNumbers = focusedCell.clueNumbers || {};
+
+  $: currentClue =
+    clues.find(
+      (c) =>
+        c.direction === focusedDirection &&
+        c.number === focusedClueNumbers[focusedDirection],
+    ) || {};
+
+  function onClueFocus({ direction, id }) {
+    focusedDirection = direction;
+    focusedCellIndex = cellIndexMap[id] || 0;
+  }
+
+  function onNextClue({ detail }) {
+    let next = detail;
+    if (next < 0) next = clues.length - 1;
+    else if (next > clues.length - 1) next = 0;
+    const { direction, id } = clues[next];
+    onClueFocus({ direction, id });
   }
 </script>
 
@@ -166,10 +188,14 @@
       <Toolbar {actions} on:event="{onToolbarEvent}" />
     </slot>
 
+    <div class="clueBar">
+      <ClueBar {currentClue} on:nextClue="{onNextClue}" {showExplanation} />
+    </div>
+
     <div class="play" class:stacked class:is-loaded="{isLoaded}">
       <Clues
         {clues}
-        {explanation}
+        {showExplanation}
         {cellIndexMap}
         {stacked}
         {isDisableHighlight}
@@ -214,8 +240,12 @@
 
   .play {
     display: flex;
-    margin-top: 5rem;
+    /* margin-top: 5rem; */
     flex-direction: var(--order, row);
+  }
+
+  .clueBar {
+    margin-bottom: 3rem;
   }
 
   .play.is-loaded.stacked {

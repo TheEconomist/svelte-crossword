@@ -14,7 +14,8 @@
     {:else if action === "check"}
       <button on:click="{() => dispatch('event', 'check')}">Check</button>
     {:else if action === "explanation"}
-      <button on:click="{() => dispatch('event', 'explanation')}">Reveal</button
+      <button on:click="{() => dispatch('event', 'explanation')}"
+        >Explain</button
       >
     {/if}
   {/each}
