@@ -13,6 +13,12 @@
   let element;
 
   $: isFocused = isNumberFocused;
+
+  function stripHtml(html) {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = html;
+    return tempDiv.textContent || tempDiv.innerText || "";
+  }
 </script>
 
 <li bind:this="{element}" use:scrollTo="{isFocused}">
@@ -25,7 +31,7 @@
     on:click="{onFocus}"
   >
     <strong>{number}</strong>
-    {clue}
+    {stripHtml(clue)}
   </button>
 </li>
 

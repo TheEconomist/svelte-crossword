@@ -31,7 +31,6 @@
   let isRevealing = false;
   let isLoaded = false;
   let isChecking = false;
-  let showExplanation = false;
   let revealTimeout;
   let clueCompletion;
 
@@ -59,6 +58,8 @@
   $: cells, (revealed = !clues.filter((d) => !d.isCorrect).length);
   $: stacked = true;
   $: inlineStyles = themeStyles[theme];
+
+  $: showExplanation = false;
 
   onMount(() => {
     isLoaded = true;
@@ -120,13 +121,12 @@
 
   function onReveal() {
     if (revealed) return true;
-    reset();
+    // reset();
     const focusedCellIds = focusedClue.cells.map((cell) => cell.id);
     cells = cells.map((cell) => ({
       ...cell,
       value: focusedCellIds.includes(cell.id) ? cell.answer : cell.value,
     }));
-
     startReveal();
   }
 
@@ -144,8 +144,7 @@
   }
 
   function onExplanation() {
-    reset();
-    showExplanation = true;
+    showExplanation = !showExplanation;
   }
 
   function onToolbarEvent({ detail }) {

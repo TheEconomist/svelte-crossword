@@ -6,6 +6,15 @@
   export let showExplanation;
   $: clue = currentClue["clue"];
   $: custom = currentClue["custom"] || "";
+
+  // bold text in gdoc clues will be highlighted
+  $: highlightStrongTags = (clue) =>
+    showExplanation
+      ? clue.replace(
+          /<strong>(.*?)<\/strong>/g,
+          '<span style="background-color:#fba493; padding:2px 4px">$1</span>',
+        )
+      : clue;
 </script>
 
 <div class="bar {custom}">
@@ -29,7 +38,7 @@
       <p>
         <span class="currentClue"
           >{currentClue.number + " " + currentClue.direction}</span
-        >{clue}
+        >{@html highlightStrongTags(clue)}
       </p>
       {#if showExplanation}
         <div class="explanationContainer">
@@ -111,8 +120,6 @@
   @media (max-width: 720px) {
     .clueContainer {
       font-size: 17px;
-      text-align: center;
-      text-wrap: balance;
     }
   }
 </style>
