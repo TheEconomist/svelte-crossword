@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import { browser } from "$app/environment";
   import Toolbar from "./Toolbar.svelte";
   import Puzzle from "./Puzzle.svelte";
   import Clues from "./Clues.svelte";
@@ -43,11 +44,13 @@
     originalClues = createClues(data);
     validated = validateClues(originalClues);
     clues = originalClues.map((d) => ({ ...d }));
-    cells = createCells(originalClues);
+    if (cells.length === 0) {
+      cells = createCells(originalClues);
+    }
     reset();
   };
 
-  $: data, onDataUpdate();
+  $: data;
   $: focusedCell = cells[focusedCellIndex] || {};
   $: cellIndexMap = fromPairs(cells.map((cell) => [cell.id, cell.index]));
   $: percentCorrect =
@@ -61,9 +64,26 @@
 
   $: showExplanation = false;
 
+  // save current state to localstorage
   onMount(() => {
     isLoaded = true;
+    if (browser) {
+      const savedCells = localStorage.getItem("crosswordCells");
+      if (savedCells) {
+        cells = JSON.parse(savedCells);
+      } else {
+        originalClues = createClues(data);
+        cells = createCells(originalClues);
+      }
+    }
+    onDataUpdate();
   });
+
+  $: if (browser) {
+    if (cells.length > 0) {
+      localStorage.setItem("crosswordCells", JSON.stringify(cells));
+    }
+  }
 
   function checkClues() {
     return clues.map((d) => {
