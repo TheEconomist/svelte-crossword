@@ -73,7 +73,7 @@
   }
 
   .is-loaded.stacked .clues--stacked {
-    display: inline-flex;
+    display: flex;
     gap: 2rem;
   }
 
