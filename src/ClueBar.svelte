@@ -12,7 +12,7 @@
     showExplanation
       ? clue.replace(
           /<strong>(.*?)<\/strong>/g,
-          '<span style="background-color:#fba493; padding:2px 4px">$1</span>',
+          '<span style="background-color:#ffe7e7; padding:2px 4px">$1</span>',
         )
       : clue;
 </script>
@@ -94,7 +94,7 @@
   }
 
   .explanationContainer {
-    font-size: 15px;
+    font-size: 17px;
     width: 100%;
     color: var(--ds-color-london-35);
     margin-top: 0.5rem;
@@ -120,6 +120,10 @@
   @media (max-width: 720px) {
     .clueContainer {
       font-size: 17px;
+    }
+
+    .explanationContainer {
+      font-size: 15px;
     }
   }
 </style>

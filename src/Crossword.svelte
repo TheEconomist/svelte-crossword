@@ -15,7 +15,7 @@
   import getSecondarilyFocusedCells from "./helpers/getSecondarilyFocusedCells.js";
 
   export let data = [];
-  export let actions = ["clear", "reveal", "check", "explanation"];
+  export let actions = ["check", "explanation", "reveal", "clear"];
   export let theme = "classic";
   export let revealDuration = 1000;
   export let breakpoint = 800;
@@ -110,7 +110,6 @@
     isRevealing = false;
     isChecking = false;
     // focusedCellIndex = 0;
-    focusedDirection = "across";
     showExplanation = false;
   }
 
@@ -151,7 +150,7 @@
   }
 
   function onCheck() {
-    isChecking = true;
+    isChecking = !isChecking;
   }
 
   function startReveal() {

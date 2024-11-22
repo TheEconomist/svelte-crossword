@@ -2,21 +2,35 @@
   import { createEventDispatcher } from "svelte";
   const dispatch = createEventDispatcher();
 
-  export let actions = ["clear", "reveal", "check", "explanation"];
+  export let actions = ["check", "explanation", "reveal", "clear"];
+
+  let activeButtons = {
+    check: false,
+    explanation: false,
+  };
+
+  function toggleButton(action) {
+    activeButtons[action] = !activeButtons[action];
+    dispatch("event", action);
+  }
 </script>
 
 <div class="toolbar">
   {#each actions as action}
-    {#if action === "clear"}
-      <button on:click="{() => dispatch('event', 'clear')}">Clear</button>
+    {#if action === "check"}
+      <button
+        class:active="{activeButtons.check}"
+        on:click="{() => toggleButton('check')}">Check</button
+      >
+    {:else if action === "explanation"}
+      <button
+        class:active="{activeButtons.explanation}"
+        on:click="{() => toggleButton('explanation')}">Explain</button
+      >
     {:else if action === "reveal"}
       <button on:click="{() => dispatch('event', 'reveal')}">Answer</button>
-    {:else if action === "check"}
-      <button on:click="{() => dispatch('event', 'check')}">Check</button>
-    {:else if action === "explanation"}
-      <button on:click="{() => dispatch('event', 'explanation')}"
-        >Explain</button
-      >
+    {:else if action === "clear"}
+      <button on:click="{() => dispatch('event', 'clear')}">Clear</button>
     {/if}
   {/each}
 </div>
@@ -44,6 +58,11 @@
     border: 1px solid #cacaca;
     font-weight: 400;
     transition: background-color 150ms;
+  }
+
+  button.active {
+    background-color: #ffe7e7;
+    border: 1px solid transparent;
   }
 
   button:hover {
