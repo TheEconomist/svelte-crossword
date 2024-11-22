@@ -15,6 +15,7 @@
   import getSecondarilyFocusedCells from "./helpers/getSecondarilyFocusedCells.js";
 
   export let data = [];
+  export let projectKey = "cryptic";
   export let actions = ["check", "explanation", "reveal", "clear"];
   export let theme = "classic";
   export let revealDuration = 1000;
@@ -68,7 +69,7 @@
   onMount(() => {
     isLoaded = true;
     if (browser) {
-      const savedCells = localStorage.getItem("crosswordCells");
+      const savedCells = localStorage.getItem(`${projectKey}_crosswordCells`);
       if (savedCells) {
         cells = JSON.parse(savedCells);
       } else {
@@ -81,7 +82,10 @@
 
   $: if (browser) {
     if (cells.length > 0) {
-      localStorage.setItem("crosswordCells", JSON.stringify(cells));
+      localStorage.setItem(
+        `${projectKey}_crosswordCells`,
+        JSON.stringify(cells),
+      );
     }
   }
 
