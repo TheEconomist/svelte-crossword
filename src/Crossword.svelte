@@ -120,9 +120,10 @@
   function onClear() {
     reset();
     if (revealTimeout) clearTimeout(revealTimeout);
+    const focusedCellIds = focusedClue.cells.map((cell) => cell.id);
     cells = cells.map((cell) => ({
       ...cell,
-      value: "",
+      value: focusedCellIds.includes(cell.id) ? "" : cell.value,
     }));
   }
 
@@ -166,8 +167,18 @@
     }, revealDuration + 250);
   }
 
+  let previousFocusedClue = null;
+
+  $: if (focusedClue !== previousFocusedClue) {
+    if (showExplanation || isChecking) {
+      showExplanation = false;
+      isChecking = false;
+    }
+    previousFocusedClue = focusedClue;
+  }
+
   function onExplanation() {
-    showExplanation = !showExplanation;
+    showExplanation = true;
   }
 
   function onToolbarEvent({ detail }) {

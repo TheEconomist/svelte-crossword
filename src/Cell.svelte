@@ -22,7 +22,7 @@
 
   $: isFocused, onFocusSelf();
   $: correct = answer === value;
-  $: showCheck = isChecking && value;
+  $: showCheck = isChecking && value && isSecondarilyFocused;
 
   function onFocusSelf() {
     if (!element) return;

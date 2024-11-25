@@ -4,13 +4,13 @@
 
   export let actions = ["check", "explanation", "reveal", "clear"];
 
-  let activeButtons = {
-    check: false,
-    explanation: false,
-  };
+  // let activeButtons = {
+  //   check: false,
+  //   explanation: false,
+  // };
 
   function toggleButton(action) {
-    activeButtons[action] = !activeButtons[action];
+    // activeButtons[action] = !activeButtons[action];
     dispatch("event", action);
   }
 </script>
@@ -18,15 +18,9 @@
 <div class="toolbar">
   {#each actions as action}
     {#if action === "check"}
-      <button
-        class:active="{activeButtons.check}"
-        on:click="{() => toggleButton('check')}">Check</button
-      >
+      <button on:click="{() => toggleButton('check')}">Check</button>
     {:else if action === "explanation"}
-      <button
-        class:active="{activeButtons.explanation}"
-        on:click="{() => toggleButton('explanation')}">Explain</button
-      >
+      <button on:click="{() => toggleButton('explanation')}">Explain</button>
     {:else if action === "reveal"}
       <button on:click="{() => dispatch('event', 'reveal')}">Answer</button>
     {:else if action === "clear"}
