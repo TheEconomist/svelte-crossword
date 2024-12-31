@@ -16,6 +16,7 @@
 
   export let data = [];
   export let projectKey = "cryptic";
+  export let small = false;
   export let actions = ["check", "explanation", "reveal", "clear"];
   export let theme = "classic";
   export let revealDuration = 1000;
@@ -238,6 +239,7 @@
         bind:focusedDirection
       />
       <Puzzle
+        {small}
         {clues}
         {focusedCell}
         {isRevealing}

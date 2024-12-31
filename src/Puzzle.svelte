@@ -7,6 +7,7 @@
 
   import Cell from "./Cell.svelte";
 
+  export let small;
   export let clues;
   export let cells;
   export let focusedDirection;
@@ -199,7 +200,7 @@
   bind:this="{element}"
 >
   <div class="puzzle-container">
-    <svg viewBox="0 0 {w} {h}">
+    <svg width="{small ? '50%' : '100%'}" viewBox="0 0 {w} {h}">
       {#each cells as { x, y, value, answer, index, number, custom }}
         <Cell
           {x}
@@ -260,10 +261,10 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
+    justify-content: center;
   }
 
   svg {
-    width: 100%;
     display: block;
     font-size: 1px;
     background-color: #333333;
