@@ -218,9 +218,11 @@
     bind:offsetWidth="{width}"
     style="{inlineStyles}"
   >
-    <slot name="toolbar" {onClear} {onReveal} {onCheck} {onExplanation}>
-      <Toolbar {actions} on:event="{onToolbarEvent}" />
-    </slot>
+    {#if !small}
+      <slot name="toolbar" {onClear} {onReveal} {onCheck} {onExplanation}>
+        <Toolbar {actions} on:event="{onToolbarEvent}" />
+      </slot>
+    {/if}
 
     <div class="clueBar">
       <ClueBar {currentClue} on:nextClue="{onNextClue}" {showExplanation} />

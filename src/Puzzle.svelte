@@ -199,8 +199,14 @@
   class:is-loaded="{isLoaded}"
   bind:this="{element}"
 >
-  <div class="puzzle-container">
-    <svg width="{small ? '50%' : '100%'}" viewBox="0 0 {w} {h}">
+  <div class="puzzle-container" class:small>
+    <svg
+      width="{small ? '50%' : '100%'}"
+      style="background-color: {small
+        ? 'transparent'
+        : '#333333'};     border: {small ? 'none' : '1px solid black'};"
+      viewBox="0 0 {w} {h}"
+    >
       {#each cells as { x, y, value, answer, index, number, custom }}
         <Cell
           {x}
@@ -264,11 +270,14 @@
     justify-content: center;
   }
 
+  .puzzle-container.small {
+    padding: 2rem 1rem;
+    background-color: var(--mb-colour-canvas-los-angeles-95);
+  }
+
   svg {
     display: block;
     font-size: 1px;
-    background-color: #333333;
-    border: 1px solid black;
     box-sizing: border-box;
   }
 
