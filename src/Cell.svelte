@@ -17,7 +17,7 @@
   export let onMoveFocus = () => {};
   export let onFlipDirection = () => {};
   export let onHistoricalChange = () => {};
-
+  export let small;
   let element;
 
   $: isFocused, onFocusSelf();
@@ -104,7 +104,7 @@
   on:keydown="{onKeydown}"
   bind:this="{element}"
 >
-  <rect width="1" height="1"></rect>
+  <rect width="1" height="1" class:small></rect>
 
   {#if showCheck && !correct}
     <line x1="0" y1="1" x2="1" y2="0"></line>
@@ -169,6 +169,11 @@
     stroke: var(--main-color);
     stroke-width: 0.01em;
     transition: fill 0.1s ease-out;
+  }
+
+  rect.small {
+    stroke-width: 0.03em;
+    stroke: var(--mb-colour-brand-red-60);
   }
 
   line {

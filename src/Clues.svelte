@@ -10,6 +10,7 @@
   export let stacked;
   export let isDisableHighlight;
   export let isLoaded;
+  export let small;
 
   $: focusedClueNumbers = focusedCell.clueNumbers || {};
 
@@ -19,8 +20,8 @@
   }
 </script>
 
-<section class="clues" class:stacked class:is-loaded="{isLoaded}">
-  <div class="clues--stacked">
+<section class="clues" class:stacked class:is-loaded="{isLoaded}" class:small>
+  <div class="clues--stacked {small ? 'small' : ''}">
     {#each ["across", "down"] as direction}
       <ClueList
         {direction}
@@ -33,7 +34,7 @@
     {/each}
   </div>
 
-  <div class="clues--list">
+  <div class="clues--list {small ? 'small' : ''}">
     {#each ["across", "down"] as direction}
       <ClueList
         {direction}
@@ -66,6 +67,16 @@
     flex: auto;
   }
 
+  section.is-loaded.stacked.small {
+    position: static;
+    height: auto;
+    top: auto;
+    display: block;
+    margin: 2em auto;
+    flex: auto;
+    max-width: 600px;
+  }
+
   .clues--stacked {
     margin: 0;
     display: none;
@@ -75,6 +86,11 @@
   .is-loaded.stacked .clues--stacked {
     display: flex;
     gap: 2rem;
+  }
+
+  .is-loaded.stacked .clues--stacked.small {
+    display: block;
+    gap: 0;
   }
 
   .is-loaded.stacked .clues--list {

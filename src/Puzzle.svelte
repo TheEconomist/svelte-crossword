@@ -201,7 +201,7 @@
 >
   <div class="puzzle-container" class:small>
     <svg
-      width="{small ? '50%' : '100%'}"
+      width="{small ? '65%' : '100%'}"
       style="background-color: {small
         ? 'transparent'
         : '#333333'};     border: {small ? 'none' : '1px solid black'};"
@@ -209,6 +209,7 @@
     >
       {#each cells as { x, y, value, answer, index, number, custom }}
         <Cell
+          {small}
           {x}
           {y}
           {index}
@@ -263,7 +264,7 @@
   }
 
   .puzzle-container {
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -271,14 +272,15 @@
   }
 
   .puzzle-container.small {
-    padding: 2rem 1rem;
-    background-color: var(--mb-colour-canvas-los-angeles-95);
+    max-width: 400px;
+    padding: 1rem;
   }
 
   svg {
     display: block;
     font-size: 1px;
     box-sizing: border-box;
+    overflow: visible;
   }
 
   .keyboard {

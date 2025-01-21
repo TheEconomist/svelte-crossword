@@ -218,18 +218,22 @@
     bind:offsetWidth="{width}"
     style="{inlineStyles}"
   >
-    {#if !small}
-      <slot name="toolbar" {onClear} {onReveal} {onCheck} {onExplanation}>
-        <Toolbar {actions} on:event="{onToolbarEvent}" />
-      </slot>
-    {/if}
+    <slot name="toolbar" {onClear} {onReveal} {onCheck} {onExplanation}>
+      <Toolbar {actions} on:event="{onToolbarEvent}" />
+    </slot>
 
     <div class="clueBar">
-      <ClueBar {currentClue} on:nextClue="{onNextClue}" {showExplanation} />
+      <ClueBar
+        {currentClue}
+        on:nextClue="{onNextClue}"
+        {showExplanation}
+        {small}
+      />
     </div>
 
     <div class="play" class:stacked class:is-loaded="{isLoaded}">
       <Clues
+        {small}
         {clues}
         {showExplanation}
         {cellIndexMap}

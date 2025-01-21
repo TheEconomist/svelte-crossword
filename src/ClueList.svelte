@@ -38,7 +38,7 @@
   }
 
   .list-container {
-    width: 50%;
+    width: 100%;
   }
   p {
     font-family: var(--font);
