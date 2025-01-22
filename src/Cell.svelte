@@ -112,11 +112,13 @@
 
   {#if value}
     <text
-      transition:pop="{{
-        y: 5,
-        delay: changeDelay,
-        duration: isRevealing ? 250 : 0,
-      }}"
+      transition:pop="{small
+        ? { duration: 0 }
+        : {
+            y: 5,
+            delay: changeDelay,
+            duration: isRevealing ? 250 : 0,
+          }}"
       class="value"
       x="0.5"
       y="0.7"

@@ -222,7 +222,7 @@
       <Toolbar {actions} on:event="{onToolbarEvent}" />
     </slot>
 
-    <div class="clueBar">
+    <div class="clueBar {showExplanation ? 'explanation' : ''}">
       <ClueBar
         {currentClue}
         on:nextClue="{onNextClue}"
@@ -287,6 +287,11 @@
 
   .clueBar {
     margin-bottom: 2rem;
+    height: 60px;
+  }
+
+  .clueBar.explanation {
+    height: 100px;
   }
 
   .play.is-loaded.stacked {
