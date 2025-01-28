@@ -3,12 +3,14 @@
 
   export let number;
   export let clue;
+  export let straight_clue;
   export let custom;
   export let isFilled;
   export let isNumberFocused = false;
   export let isDirectionFocused = false;
   export let isDisableHighlight = false;
   export let onFocus = () => {};
+  export let clueType;
 
   let element;
 
@@ -29,7 +31,7 @@
     on:click="{onFocus}"
   >
     <strong>{number}</strong>
-    {stripHtml(clue)}
+    {@html clueType === "cryptic" ? stripHtml(clue) : straight_clue}
   </button>
 </li>
 

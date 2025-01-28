@@ -11,13 +11,13 @@
   import { fromPairs } from "./helpers/utils.js";
   import themeStyles from "./helpers/themeStyles.js";
   import ClueBar from "./ClueBar.svelte";
-
-  import getSecondarilyFocusedCells from "./helpers/getSecondarilyFocusedCells.js";
+  import ClueTypeToggle from "./ClueTypeToggle.svelte";
 
   export let data = [];
   export let projectKey = "cryptic";
   export let small = false;
   export let actions = ["check", "explanation", "reveal", "clear"];
+  export let typeActions = ["cryptic", "straight"];
   export let theme = "classic";
   export let revealDuration = 1000;
   export let breakpoint = 800;
@@ -41,6 +41,7 @@
   let validated = [];
   let clues = [];
   let cells = [];
+  let clueType = "cryptic";
 
   const onDataUpdate = () => {
     originalClues = createClues(data);
@@ -189,6 +190,15 @@
     else if (detail === "explanation") onExplanation();
   }
 
+  function onClueTypeEvent({ detail }) {
+    if (detail === "cryptic") changeClueType("cryptic");
+    else if (detail === "straight") changeClueType("straight");
+  }
+
+  function changeClueType(type) {
+    clueType = type;
+  }
+
   $: focusedClueNumbers = focusedCell.clueNumbers || {};
 
   $: currentClue =
@@ -222,8 +232,15 @@
       <Toolbar {actions} on:event="{onToolbarEvent}" />
     </slot>
 
+    {#if small}
+      <slot name="typeToolbar" {onClueTypeEvent}>
+        <ClueTypeToggle {typeActions} on:event="{onClueTypeEvent}" />
+      </slot>
+    {/if}
+
     <div class="clueBar {showExplanation ? 'explanation' : ''}">
       <ClueBar
+        {clueType}
         {currentClue}
         on:nextClue="{onNextClue}"
         {showExplanation}
@@ -233,6 +250,7 @@
 
     <div class="play" class:stacked class:is-loaded="{isLoaded}">
       <Clues
+        {clueType}
         {small}
         {clues}
         {showExplanation}

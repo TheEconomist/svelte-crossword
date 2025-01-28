@@ -4,7 +4,10 @@
 
   export let currentClue = {};
   export let showExplanation;
-  $: clue = currentClue["clue"];
+  export let clueType;
+
+  $: clue =
+    clueType === "cryptic" ? currentClue["clue"] : currentClue["straight_clue"];
   $: custom = currentClue["custom"] || "";
 
   // bold text in gdoc clues will be highlighted

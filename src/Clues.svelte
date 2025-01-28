@@ -11,6 +11,7 @@
   export let isDisableHighlight;
   export let isLoaded;
   export let small;
+  export let clueType;
 
   $: focusedClueNumbers = focusedCell.clueNumbers || {};
 
@@ -24,6 +25,7 @@
   <div class="clues--stacked {small ? 'small' : ''}">
     {#each ["across", "down"] as direction}
       <ClueList
+        {clueType}
         {direction}
         {focusedClueNumbers}
         clues="{clues.filter((d) => d.direction === direction)}"
@@ -37,6 +39,7 @@
   <div class="clues--list {small ? 'small' : ''}">
     {#each ["across", "down"] as direction}
       <ClueList
+        {clueType}
         {direction}
         {focusedClueNumbers}
         clues="{clues.filter((d) => d.direction === direction)}"

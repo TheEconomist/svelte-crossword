@@ -2,36 +2,40 @@
   import { createEventDispatcher } from "svelte";
   const dispatch = createEventDispatcher();
 
-  export let actions = ["check", "explanation", "reveal", "clear"];
+  export let actions = ["cryptic", "straight"];
 
-  // let activeButtons = {
-  //   check: false,
-  //   explanation: false,
-  // };
+  let activeButtons = {
+    cryptic: true,
+    straight: false,
+  };
 
   function toggleButton(action) {
-    // activeButtons[action] = !activeButtons[action];
+    activeButtons.cryptic = false;
+    activeButtons.straight = false;
+    activeButtons[action] = true;
     dispatch("event", action);
   }
 </script>
 
 <div class="toolbar">
   {#each actions as action}
-    {#if action === "check"}
-      <button on:click="{() => toggleButton('check')}">Check</button>
-    {:else if action === "explanation"}
-      <button on:click="{() => toggleButton('explanation')}">Explain</button>
-    {:else if action === "reveal"}
-      <button on:click="{() => dispatch('event', 'reveal')}">Answer</button>
-    {:else if action === "clear"}
-      <button on:click="{() => dispatch('event', 'clear')}">Clear</button>
+    {#if action === "cryptic"}
+      <button
+        class:active="{activeButtons.cryptic}"
+        on:click="{() => toggleButton('cryptic')}">Cryptic</button
+      >
+    {:else if action === "straight"}
+      <button
+        class:active="{activeButtons.straight}"
+        on:click="{() => toggleButton('straight')}">Straight</button
+      >
     {/if}
   {/each}
 </div>
 
 <style>
   .toolbar {
-    padding: 1em 0;
+    margin-bottom: 1em;
     display: flex;
     justify-content: center;
     font-family: var(--font);
@@ -41,11 +45,11 @@
 
   button {
     cursor: pointer;
-    margin-left: 1em;
+    margin-left: -1px;
     font-size: 1em;
     font-family: var(--font);
     background-color: var(--accent-color);
-    border-radius: 4px;
+    /* border-radius: 4px; */
     color: var(--main-color);
     padding: 0.4rem 1rem;
     border: 1px solid #cacaca;
@@ -56,6 +60,8 @@
   button.active {
     background-color: #ffe7e7;
     border: 1px solid transparent;
+    z-index: 2;
+    font-weight: 500;
   }
 
   button:hover {

@@ -7,6 +7,7 @@
   export let isDirectionFocused;
   export let onClueFocus;
   export let isDisableHighlight;
+  export let clueType;
 </script>
 
 <div class="list-container">
@@ -15,7 +16,9 @@
     <ul>
       {#each clues as clue}
         <Clue
+          {clueType}
           clue="{clue.clue}"
+          straight_clue="{clue.straight_clue}"
           number="{clue.number}"
           custom="{clue.custom}"
           isFilled="{clue.isFilled}"
