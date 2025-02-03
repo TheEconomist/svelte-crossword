@@ -1,6 +1,6 @@
 {
   "name": "@economist/svelte-crossword",
-  "version": "0.3.5-alpha.18",
+  "version": "0.3.5-alpha.19",
   "description": "Crossword component for Svelte",
   "svelte": "src/Crossword.svelte",
   "repository": {
