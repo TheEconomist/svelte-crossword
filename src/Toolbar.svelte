@@ -3,11 +3,7 @@
   const dispatch = createEventDispatcher();
 
   export let actions = ["check", "explanation", "reveal", "clear"];
-
-  // let activeButtons = {
-  //   check: false,
-  //   explanation: false,
-  // };
+  export let clueType;
 
   function toggleButton(action) {
     // activeButtons[action] = !activeButtons[action];
@@ -20,7 +16,10 @@
     {#if action === "check"}
       <button on:click="{() => toggleButton('check')}">Check</button>
     {:else if action === "explanation"}
-      <button on:click="{() => toggleButton('explanation')}">Explain</button>
+      <button
+        on:click="{() => toggleButton('explanation')}"
+        class:disabled="{clueType !== 'cryptic'}">Explain</button
+      >
     {:else if action === "reveal"}
       <button on:click="{() => dispatch('event', 'reveal')}">Answer</button>
     {:else if action === "clear"}
@@ -53,9 +52,10 @@
     transition: background-color 150ms;
   }
 
-  button.active {
-    background-color: #ffe7e7;
+  button.disabled {
+    background-color: var(--mb-colour-greyscale-london-70);
     border: 1px solid transparent;
+    pointer-events: none;
   }
 
   button:hover {
