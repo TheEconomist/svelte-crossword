@@ -71,15 +71,14 @@
   // save current state to localstorage
   onMount(() => {
     isLoaded = true;
-    if (browser) {
-      if (LocalStorage) {
-        const savedCells = localStorage.getItem(`${projectKey}_crosswordCells`);
-        cells = JSON.parse(savedCells);
-      } else {
-        originalClues = createClues(data);
-        cells = createCells(originalClues);
-      }
+    if (browser && LocalStorage) {
+      const savedCells = localStorage.getItem(`${projectKey}_crosswordCells`);
+      cells = JSON.parse(savedCells || "[]");
+    } else {
+      originalClues = createClues(data);
+      cells = createCells(originalClues);
     }
+
     onDataUpdate();
   });
 
