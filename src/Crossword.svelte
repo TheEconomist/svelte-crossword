@@ -15,6 +15,7 @@
 
   export let data = [];
   export let projectKey = "cryptic";
+  export let LocalStorage = false;
   export let small = false;
   export let actions = ["check", "explanation", "reveal", "clear"];
   export let typeActions = ["cryptic", "straight"];
@@ -71,8 +72,8 @@
   onMount(() => {
     isLoaded = true;
     if (browser) {
-      const savedCells = localStorage.getItem(`${projectKey}_crosswordCells`);
-      if (savedCells) {
+      if (LocalStorage) {
+        const savedCells = localStorage.getItem(`${projectKey}_crosswordCells`);
         cells = JSON.parse(savedCells);
       } else {
         originalClues = createClues(data);
@@ -82,7 +83,7 @@
     onDataUpdate();
   });
 
-  $: if (browser) {
+  $: if (browser && LocalStorage) {
     if (cells.length > 0) {
       localStorage.setItem(
         `${projectKey}_crosswordCells`,
