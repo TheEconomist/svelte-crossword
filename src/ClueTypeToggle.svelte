@@ -36,6 +36,7 @@
 <style>
   .toolbar {
     margin-bottom: 1em;
+    padding-top: 2rem;
     display: flex;
     justify-content: center;
     font-family: var(--font);
