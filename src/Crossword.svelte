@@ -28,6 +28,7 @@
   export let showConfetti = false;
   export let showKeyboard;
   export let keyboardStyle = "outline";
+  export let isComplete = false;
 
   let width = 0;
   let focusedDirection = "across";
