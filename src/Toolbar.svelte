@@ -54,6 +54,7 @@
 
   button.disabled {
     background-color: var(--mb-colour-greyscale-london-70);
+    color: var(--mb-colour-greyscale-london-40);
     border: 1px solid transparent;
     pointer-events: none;
   }

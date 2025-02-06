@@ -45,27 +45,53 @@
   }
 
   button {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: white;
+    border: 0.0625rem solid var(--ds-color-london-70);
+    border-radius: 0.25rem;
+    box-shadow: none;
+    box-sizing: border-box;
+    color: var(--ds-color-beijing);
     cursor: pointer;
-    margin-left: -1px;
-    font-size: 1em;
-    font-family: var(--font);
-    background-color: var(--accent-color);
-    /* border-radius: 4px; */
-    color: var(--main-color);
-    padding: 0.4rem 1rem;
-    border: 1px solid #cacaca;
-    font-weight: 400;
-    transition: background-color 150ms;
+    font-family: var(--ds-type-system-sans-lining);
+    font-size: var(--ds-type-scale-0);
+    font-weight: 300;
+    height: var(--btn-height);
+    line-height: var(--ds-type-leading-lower);
+    padding: 0.3125rem var(--ds-grid-gap);
+    text-decoration: none;
+    transition: background-color var(--ds-interactions-transition);
+    will-change: background-color;
+    transition: border-color var(--ds-interactions-transition);
+    will-change: border-color;
+    min-width: 120px;
+  }
+  button:hover {
+    background-color: #f2f2f2;
   }
 
   button.active {
-    background-color: #ffe7e7;
-    border: 1px solid transparent;
-    z-index: 2;
-    font-weight: 500;
+    background-color: #f2f2f2;
+    font-weight: 400;
+    border-color: black;
+    z-index: 4;
   }
 
-  button:hover {
-    background-color: var(--secondary-highlight-color);
+  button:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  button:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    /* border-right: none; */
+  }
+
+  @media (max-width: 600px) {
+    button {
+      font-size: var(--ds-type-scale--1);
+    }
   }
 </style>
