@@ -14,10 +14,14 @@
 <div class="toolbar">
   {#each actions as action}
     {#if action === "check"}
-      <button on:click="{() => toggleButton('check')}">Check</button>
+      <button
+        on:click="{() => toggleButton('check')}"
+        on:mousedown|preventDefault>Check</button
+      >
     {:else if action === "explanation"}
       <button
         on:click="{() => toggleButton('explanation')}"
+        on:mousedown|preventDefault
         class:disabled="{clueType !== 'cryptic'}">Explain</button
       >
     {:else if action === "reveal"}
