@@ -53,9 +53,8 @@
   }
 
   button.disabled {
-    background-color: var(--mb-colour-greyscale-london-70);
-    color: var(--mb-colour-greyscale-london-40);
-    border: 1px solid transparent;
+    color: var(--mb-colour-greyscale-london-70);
+    border: 1px solid var(--mb-colour-greyscale-london-95);
     pointer-events: none;
   }
 

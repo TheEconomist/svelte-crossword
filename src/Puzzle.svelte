@@ -272,7 +272,7 @@
   }
 
   .puzzle-container.small {
-    max-width: 400px;
+    width: 400px;
     padding: 1rem;
   }
 
@@ -299,6 +299,12 @@
       top: auto;
       height: auto;
       order: -1;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .puzzle-container.small {
+      width: 300px;
     }
   }
 </style>

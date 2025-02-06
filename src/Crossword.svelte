@@ -24,7 +24,7 @@
   export let breakpoint = 800;
   export let revealed = false;
   export let disableHighlight = false;
-  export let showCompleteMessage = true;
+  export let showCompleteMessage = small ? false : true;
   export let showConfetti = false;
   export let showKeyboard;
   export let keyboardStyle = "outline";
