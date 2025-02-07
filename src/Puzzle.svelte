@@ -207,90 +207,36 @@
         : '#333333'};     border: {small ? 'none' : '1px solid black'};"
       viewBox="0 0 {w} {h}"
     >
-      {#each cells as { x, y, value, answer, index, number, custom }}
-        {#if focusedCellIndex !== index && !secondarilyFocusedCells.includes(index)}
-          <Cell
-            {small}
-            {x}
-            {y}
-            {index}
-            {value}
-            {answer}
-            {number}
-            {custom}
-            changeDelay="{isRevealing
-              ? (revealDuration / cells.length) * index
-              : 0}"
-            {isRevealing}
-            {isChecking}
-            isFocused="{false}"
-            isSecondarilyFocused="{false}"
-            {onFocusCell}
-            {onCellUpdate}
-            {onFocusClueDiff}
-            {onMoveFocus}
-            {onFlipDirection}
-            {onHistoricalChange}
-          />
-        {/if}
-      {/each}
-
-      <!-- Second layer: secondarily focused cells -->
-      {#each cells as { x, y, value, answer, index, number, custom }}
-        {#if secondarilyFocusedCells.includes(index) && focusedCellIndex !== index}
-          <Cell
-            {small}
-            {x}
-            {y}
-            {index}
-            {value}
-            {answer}
-            {number}
-            {custom}
-            changeDelay="{isRevealing
-              ? (revealDuration / cells.length) * index
-              : 0}"
-            {isRevealing}
-            {isChecking}
-            isFocused="{false}"
-            isSecondarilyFocused="{!isDisableHighlight}"
-            {onFocusCell}
-            {onCellUpdate}
-            {onFocusClueDiff}
-            {onMoveFocus}
-            {onFlipDirection}
-            {onHistoricalChange}
-          />
-        {/if}
-      {/each}
-
-      <!-- Third layer: focused cell -->
-      {#each cells as { x, y, value, answer, index, number, custom }}
-        {#if focusedCellIndex === index}
-          <Cell
-            {small}
-            {x}
-            {y}
-            {index}
-            {value}
-            {answer}
-            {number}
-            {custom}
-            changeDelay="{isRevealing
-              ? (revealDuration / cells.length) * index
-              : 0}"
-            {isRevealing}
-            {isChecking}
-            isFocused="{true}"
-            isSecondarilyFocused="{false}"
-            {onFocusCell}
-            {onCellUpdate}
-            {onFocusClueDiff}
-            {onMoveFocus}
-            {onFlipDirection}
-            {onHistoricalChange}
-          />
-        {/if}
+      <!-- focused and secondary focused cells render on top to maintain stroke -->
+      {#each [...cells].sort((a, b) => {
+        const aFocused = focusedCellIndex === a.index || secondarilyFocusedCells.includes(a.index);
+        const bFocused = focusedCellIndex === b.index || secondarilyFocusedCells.includes(b.index);
+        return aFocused === bFocused ? 0 : aFocused ? 1 : -1;
+      }) as { x, y, value, answer, index, number, custom }}
+        <Cell
+          {small}
+          {x}
+          {y}
+          {index}
+          {value}
+          {answer}
+          {number}
+          {custom}
+          changeDelay="{isRevealing
+            ? (revealDuration / cells.length) * index
+            : 0}"
+          {isRevealing}
+          {isChecking}
+          isFocused="{focusedCellIndex === index}"
+          isSecondarilyFocused="{secondarilyFocusedCells.includes(index) &&
+            !isDisableHighlight}"
+          {onFocusCell}
+          {onCellUpdate}
+          {onFocusClueDiff}
+          {onMoveFocus}
+          {onFlipDirection}
+          {onHistoricalChange}
+        />
       {/each}
     </svg>
   </div>

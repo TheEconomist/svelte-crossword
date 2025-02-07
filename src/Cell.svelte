@@ -148,7 +148,7 @@
   g.is-focused rect {
     fill: var(--primary-highlight-color);
     stroke: var(--mb-colour-brand-red-60);
-    stroke-width: 0.05em;
+    stroke-width: 0.05em; /* Slightly thicker stroke */
   }
 
   text {
@@ -156,6 +156,7 @@
     line-height: 1;
     font-family: var(--ds-type-system-sans-smallcaps);
     fill: var(--ds-color-london-20);
+    z-index: 100;
   }
 
   .value {
