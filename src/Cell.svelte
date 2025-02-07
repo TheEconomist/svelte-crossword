@@ -142,10 +142,13 @@
 
   g.is-secondarily-focused rect {
     fill: var(--secondary-highlight-color);
+    stroke: var(--mb-colour-brand-red-60);
   }
 
   g.is-focused rect {
     fill: var(--primary-highlight-color);
+    stroke: var(--mb-colour-brand-red-60);
+    stroke-width: 0.05em;
   }
 
   text {
@@ -175,7 +178,7 @@
 
   rect.small {
     stroke-width: 0.03em;
-    stroke: var(--mb-colour-brand-red-60);
+    stroke: var(--mb-colour-greyscale-london-70);
   }
 
   line {
