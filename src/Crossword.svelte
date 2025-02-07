@@ -171,9 +171,10 @@
 
   let previousFocusedClue = null;
 
-  $: if (focusedClue !== previousFocusedClue) {
+  $: if (focusedClue?.answer !== previousFocusedClue?.answer) {
     if (showExplanation || isChecking) {
       isChecking = false;
+      showExplanation = false;
     }
     previousFocusedClue = focusedClue;
   }
@@ -232,12 +233,17 @@
         <ClueTypeToggle
           {typeActions}
           on:event="{onClueTypeEvent}"
-          on:event="{(showExplanation = !showExplanation)}"
+          on:event="{(showExplanation = false)}"
         />
       </slot>
     {/if}
     <slot name="toolbar" {onClear} {onReveal} {onCheck} {onExplanation}>
-      <Toolbar {actions} on:event="{onToolbarEvent}" {clueType} />
+      <Toolbar
+        {actions}
+        on:event="{onToolbarEvent}"
+        {clueType}
+        {showExplanation}
+      />
     </slot>
 
     <div class="clueBar {showExplanation ? 'explanation' : ''}">
