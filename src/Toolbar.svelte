@@ -5,8 +5,12 @@
   export let actions = ["check", "explanation", "reveal", "clear"];
   export let clueType;
 
+  let explanationActive = false;
+
   function toggleButton(action) {
-    // activeButtons[action] = !activeButtons[action];
+    if (action === "explanation") {
+      explanationActive = !explanationActive;
+    }
     dispatch("event", action);
   }
 </script>
@@ -22,7 +26,8 @@
       <button
         on:click="{() => toggleButton('explanation')}"
         on:mousedown|preventDefault
-        class:disabled="{clueType !== 'cryptic'}">Explain</button
+        class:disabled="{clueType !== 'cryptic'}"
+        class:active="{explanationActive}">Explain</button
       >
     {:else if action === "reveal"}
       <button on:click="{() => dispatch('event', 'reveal')}">Answer</button>
@@ -54,6 +59,11 @@
     border: 1px solid #cacaca;
     font-weight: 400;
     transition: background-color 150ms;
+  }
+
+  button.active {
+    background-color: var(--secondary-highlight-color);
+    border: 1px solid var(--mb-colour-greyscale-london-20);
   }
 
   button.disabled {

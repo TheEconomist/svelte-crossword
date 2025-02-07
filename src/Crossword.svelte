@@ -117,7 +117,6 @@
     isRevealing = false;
     isChecking = false;
     // focusedCellIndex = 0;
-    showExplanation = false;
   }
 
   function onClear() {
@@ -174,14 +173,13 @@
 
   $: if (focusedClue !== previousFocusedClue) {
     if (showExplanation || isChecking) {
-      showExplanation = false;
       isChecking = false;
     }
     previousFocusedClue = focusedClue;
   }
 
   function onExplanation() {
-    showExplanation = true;
+    showExplanation = !showExplanation;
   }
 
   function onToolbarEvent({ detail }) {
@@ -231,7 +229,11 @@
   >
     {#if small}
       <slot name="typeToolbar" {onClueTypeEvent}>
-        <ClueTypeToggle {typeActions} on:event="{onClueTypeEvent}" />
+        <ClueTypeToggle
+          {typeActions}
+          on:event="{onClueTypeEvent}"
+          on:event="{(showExplanation = !showExplanation)}"
+        />
       </slot>
     {/if}
     <slot name="toolbar" {onClear} {onReveal} {onCheck} {onExplanation}>
