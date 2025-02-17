@@ -123,6 +123,11 @@
   @media (max-width: 720px) {
     .clueContainer {
       font-size: 17px;
+      padding: 0;
+    }
+
+    button {
+      padding: 0 2px;
     }
 
     .explanationContainer {
