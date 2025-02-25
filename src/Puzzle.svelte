@@ -296,6 +296,7 @@
   /* overide svelte-keyboard default font */
   :global(.keyboard .page button) {
     font-family: var(--ds-type-system-sans);
+    color: #000;
   }
 
   @media only screen and (max-width: 720px) {
