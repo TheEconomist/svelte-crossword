@@ -1,24 +1,11 @@
 # svelte-crossword
 
-By [Amelia Wattenberger](https://twitter.com/wattenberger) and [Russell Samora](https://twitter.com/russellviz).
-
-## Examples
-
-[Example page](https://russellsamora.github.io/svelte-crossword)
-
-## Features
-
-- Generate puzzle from simple JSON format
-- Slottable toolbar that can tap into crossword methods
-- Fully responsive
-- Optimized for mobile with on-screen keyboard
-- Preset style themes with customization
-- Puzzle validation
-- Custom class names for cells and clues
+Forked version of (svelte-crossword)[https://github.com/russellsamora/svelte-crossword].
+Used for Mini-crossword and large Christmas crossword.
 
 ## Installation
 
-`npm install svelte-crossword`
+`npm install '@economist/svelte-crossword'`
 
 ## Usage
 
@@ -70,17 +57,17 @@ Note: X and Y coordinates can be zero or one based, it will detect automatically
 
 ## Parameters
 
-| parameter             | default                        | type    | description                                                                         |
-| --------------------- | ------------------------------ | ------- | ----------------------------------------------------------------------------------- |
-| `data`                | _required_                     | Array   | crossword clue/answer data                                                          |
-| `theme`               | `"classic"`                    | String  | preset theme to use                                                                 |
-| `actions`             | `["clear", "reveal", "check"]` | Array   | toolbar actions                                                                     |
-| `revealDuration`      | `1000`                         | Number  | reveal transition duration in ms                                                    |
-| `breakpoint`          | `720`                          | Number  | when to switch to stacked layout                                                    |
-| `disableHighlight`    | `false`                        | Boolean | turn off puzzle highlight                                                           |
-| `showCompleteMessage` | `true`                         | Boolean | show message overlay after completion                                               |
-| `showConfetti`        | `true`                         | Boolean | show confetti during completion message                                             |
-| `showKeyboard`        | `false`                        | Boolean | force on-screen keyboard display (overriding auto-check)                            |
+| parameter             | default                        | type    | description                                                                     |
+| --------------------- | ------------------------------ | ------- | ------------------------------------------------------------------------------- |
+| `data`                | _required_                     | Array   | crossword clue/answer data                                                      |
+| `theme`               | `"classic"`                    | String  | preset theme to use                                                             |
+| `actions`             | `["clear", "reveal", "check"]` | Array   | toolbar actions                                                                 |
+| `revealDuration`      | `1000`                         | Number  | reveal transition duration in ms                                                |
+| `breakpoint`          | `720`                          | Number  | when to switch to stacked layout                                                |
+| `disableHighlight`    | `false`                        | Boolean | turn off puzzle highlight                                                       |
+| `showCompleteMessage` | `true`                         | Boolean | show message overlay after completion                                           |
+| `showConfetti`        | `true`                         | Boolean | show confetti during completion message                                         |
+| `showKeyboard`        | `false`                        | Boolean | force on-screen keyboard display (overriding auto-check)                        |
 | `keyboardStyle`       | `"outline"`                    | String  | [keyboard button style](https://github.com/russellsamora/svelte-keyboard#style) |
 
 ## Bindings
@@ -166,13 +153,3 @@ You can provide more fine-grained control over the toolbar and completion messag
 cd example
 npm run dev
 ```
-
-## Notes
-
-- Example data is from the October 21, 2020 NYT [mini crossword](https://www.nytimes.com/crosswords/game/mini/2020/10/21)
-- Example data is from the October 21, 2020 NYT [daily crossword](https://www.nytimes.com/crosswords/game/daily/2020/10/21)
-
-### Approaches
-
-- [Context + Store](https://svelte.dev/repl/cb193342ca4e4d43af66b5c14167d117?version=3.29.0)
-- [Prop + Binding](https://svelte.dev/repl/aa9159dabc8a40e48c1f6fad3a083e9e?version=3.29.0)
