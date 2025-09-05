@@ -12,7 +12,8 @@
   import themeStyles from "./helpers/themeStyles.js";
   import ClueBar from "./ClueBar.svelte";
   import ClueTypeToggle from "./ClueTypeToggle.svelte";
-
+  import Timer from "./Timer.svelte";
+  import { timerStore } from "./helpers/timer.js";
   export let data = [];
   export let projectKey = "cryptic";
   export let LocalStorage = false;
@@ -29,6 +30,7 @@
   export let showKeyboard;
   export let keyboardStyle = "outline";
   export let isComplete = false;
+  export let completedTime = null;
 
   let width = 0;
   let focusedDirection = "across";
@@ -44,6 +46,11 @@
   let clues = [];
   let cells = [];
   let clueType = "cryptic";
+
+  $: timerStore.reset();
+  $: timerStore.start();
+  $: if (isComplete) timerStore.complete();
+  $: completedTime = $timerStore.completedTime;
 
   const onDataUpdate = () => {
     originalClues = createClues(data);
@@ -225,22 +232,22 @@
 {#if validated}
   <article
     class="svelte-crossword"
-    bind:offsetWidth="{width}"
-    style="{inlineStyles}"
+    bind:offsetWidth={width}
+    style={inlineStyles}
   >
     {#if small}
       <slot name="typeToolbar" {onClueTypeEvent}>
         <ClueTypeToggle
           {typeActions}
-          on:event="{onClueTypeEvent}"
-          on:event="{(showExplanation = false)}"
+          on:event={onClueTypeEvent}
+          on:event={(showExplanation = false)}
         />
       </slot>
     {/if}
     <slot name="toolbar" {onClear} {onReveal} {onCheck} {onExplanation}>
       <Toolbar
         {actions}
-        on:event="{onToolbarEvent}"
+        on:event={onToolbarEvent}
         {clueType}
         {showExplanation}
       />
@@ -250,13 +257,17 @@
       <ClueBar
         {clueType}
         {currentClue}
-        on:nextClue="{onNextClue}"
+        on:nextClue={onNextClue}
         {showExplanation}
         {small}
       />
     </div>
 
-    <div class="play" class:stacked class:is-loaded="{isLoaded}">
+    <div class="timer">
+      <Timer />
+    </div>
+
+    <div class="play" class:stacked class:is-loaded={isLoaded}>
       <Clues
         {clueType}
         {small}
@@ -271,6 +282,7 @@
         bind:focusedDirection
       />
       <Puzzle
+        {isComplete}
         {small}
         {clues}
         {focusedCell}

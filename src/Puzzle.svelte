@@ -21,6 +21,7 @@
   export let showKeyboard;
   export let isLoaded;
   export let keyboardStyle;
+  export let isComplete;
 
   let element;
   let cellsHistoryIndex = 0;
@@ -191,20 +192,20 @@
   }
 </script>
 
-<svelte:window on:click="{onClick}" />
+<svelte:window on:click={onClick} />
 
 <section
   class="puzzle"
   class:stacked
-  class:is-loaded="{isLoaded}"
-  bind:this="{element}"
+  class:is-loaded={isLoaded}
+  bind:this={element}
 >
   <div class="puzzle-container" class:small>
     <svg
-      width="{small ? '65%' : '100%'}"
+      width={small ? "65%" : "100%"}
       style="background-color: {small
         ? 'transparent'
-        : '#333333'};     border: {small ? 'none' : '1px solid black'};"
+        : '#333333'};     border: {small ? 'none' : '1px solid black'}; "
       viewBox="0 0 {w} {h}"
     >
       <!-- focused and secondary focused cells render on top to maintain stroke -->
@@ -222,14 +223,15 @@
           {answer}
           {number}
           {custom}
-          changeDelay="{isRevealing
+          changeDelay={isRevealing
             ? (revealDuration / cells.length) * index
-            : 0}"
+            : 0}
           {isRevealing}
           {isChecking}
-          isFocused="{focusedCellIndex === index}"
-          isSecondarilyFocused="{secondarilyFocusedCells.includes(index) &&
-            !isDisableHighlight}"
+          {isComplete}
+          isFocused={focusedCellIndex === index}
+          isSecondarilyFocused={secondarilyFocusedCells.includes(index) &&
+            !isDisableHighlight}
           {onFocusCell}
           {onCellUpdate}
           {onFocusClueDiff}
@@ -244,11 +246,7 @@
 
 {#if keyboardVisible}
   <div class="keyboard">
-    <Keyboard
-      layout="crossword"
-      style="{keyboardStyle}"
-      on:keydown="{onKeydown}"
-    />
+    <Keyboard layout="crossword" style={keyboardStyle} on:keydown={onKeydown} />
   </div>
 {/if}
 

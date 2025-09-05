@@ -9,6 +9,7 @@
   export let changeDelay = 0;
   export let isRevealing = false;
   export let isChecking = false;
+  export let isComplete = false;
   export let isFocused = false;
   export let isSecondarilyFocused = false;
   export let onFocusCell = () => {};
@@ -92,17 +93,20 @@
   }
 </script>
 
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <g
   class="cell {custom} cell-{x}-{y}"
-  class:is-focused="{isFocused}"
-  class:is-secondarily-focused="{isSecondarilyFocused}"
-  class:is-correct="{showCheck && correct}"
-  class:is-incorrect="{showCheck && !correct}"
-  transform="{`translate(${x}, ${y})`}"
+  class:is-focused={isFocused}
+  class:is-secondarily-focused={isSecondarilyFocused}
+  class:is-correct={showCheck && correct}
+  class:is-incorrect={showCheck && !correct}
+  class:is-complete={small && isComplete}
+  style="--cell-index: {index};"
+  transform={`translate(${x}, ${y})`}
   tabIndex="0"
-  on:click="{onClick}"
-  on:keydown="{onKeydown}"
-  bind:this="{element}"
+  on:click={onClick}
+  on:keydown={onKeydown}
+  bind:this={element}
 >
   <rect width="1" height="1" class:small></rect>
 
@@ -112,13 +116,12 @@
 
   {#if value}
     <text
-      transition:pop="{small
+      transition:pop={small
         ? { duration: 0 }
         : {
             y: 5,
-            delay: changeDelay,
-            duration: isRevealing ? 250 : 0,
-          }}"
+            duration: isRevealing ? 300 : 0,
+          }}
       class="value"
       x="0.5"
       y="0.7"
@@ -175,6 +178,39 @@
     stroke: var(--main-color);
     stroke-width: 0.01em;
     transition: fill 0.1s ease-out;
+  }
+
+  /* animation for when the cell is complete */
+  g.is-complete rect {
+    animation: completeBackground 0s linear forwards;
+    animation-delay: calc(var(--cell-index) * 50ms);
+  }
+
+  g.is-complete text {
+    animation: completeText 0.3s linear forwards;
+    animation-delay: calc(var(--cell-index) * 50ms);
+    opacity: 0;
+  }
+
+  @keyframes completeBackground {
+    0% {
+      fill: var(--bg-color);
+    }
+
+    100% {
+      fill: var(--secondary-highlight-color);
+      stroke: var(--mb-colour-brand-red-60);
+      stroke-width: 0.05em;
+    }
+  }
+
+  @keyframes completeText {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 
   rect.small {
