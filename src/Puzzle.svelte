@@ -183,7 +183,7 @@
 
   function onKeydown({ detail }) {
     const diff = detail === "Backspace" ? -1 : 1;
-    const value = detail === "Backspace" ? "" : detail;
+    const value = detail === "Backspace" ? "" : detail.toUpperCase();
     onCellUpdate(focusedCellIndex, value, diff);
   }
 
@@ -295,6 +295,7 @@
   :global(.keyboard .page button) {
     font-family: var(--ds-type-system-sans);
     color: #000;
+    text-transform: uppercase;
   }
 
   @media only screen and (max-width: 720px) {
