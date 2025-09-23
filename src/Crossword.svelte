@@ -25,9 +25,10 @@
   export let breakpoint = 800;
   export let revealed = false;
   export let disableHighlight = false;
-  export let showCompleteMessage = small ? false : true;
+  export let showCompleteMessage = false;
   export let showConfetti = false;
   export let showKeyboard;
+  export let showToolbar = true;
   export let keyboardStyle = "outline";
   export let isComplete = false;
   export let completedTime = null;
@@ -40,6 +41,7 @@
   let isChecking = false;
   let revealTimeout;
   let clueCompletion;
+  let revealedCellIds = new Set();
 
   let originalClues = [];
   let validated = [];
@@ -123,6 +125,7 @@
   function reset() {
     isRevealing = false;
     isChecking = false;
+    revealedCellIds.clear();
     // focusedCellIndex = 0;
   }
 
@@ -156,6 +159,7 @@
     if (revealed) return true;
     // reset();
     const focusedCellIds = focusedClue.cells.map((cell) => cell.id);
+    revealedCellIds = new Set(focusedCellIds);
     cells = cells.map((cell) => ({
       ...cell,
       value: focusedCellIds.includes(cell.id) ? cell.answer : cell.value,
@@ -235,7 +239,7 @@
     bind:offsetWidth={width}
     style={inlineStyles}
   >
-    {#if small}
+    {#if small || showToolbar}
       <slot name="typeToolbar" {onClueTypeEvent}>
         <ClueTypeToggle
           {typeActions}
@@ -294,6 +298,7 @@
         {stacked}
         {isLoaded}
         {keyboardStyle}
+        {revealedCellIds}
         bind:cells
         bind:focusedCellIndex
         bind:focusedDirection
