@@ -100,7 +100,9 @@
   class:is-secondarily-focused={isSecondarilyFocused}
   class:is-correct={showCheck && correct}
   class:is-incorrect={showCheck && !correct}
-  class:is-complete={small && isComplete}
+  class:is-complete={isComplete}
+  class:is-large-complete={!small && isComplete}
+  class:is-small-complete={small && isComplete}
   style="--cell-index: {index};"
   transform={`translate(${x}, ${y})`}
   tabIndex="0"
@@ -176,14 +178,25 @@
   }
 
   /* animation for when the cell is complete */
-  g.is-complete rect {
+  g.is-small-complete rect {
     animation: completeBackground 0s linear forwards;
     animation-delay: calc(var(--cell-index) * 50ms);
   }
 
-  g.is-complete text {
+  g.is-small-complete text {
     animation: completeText 0.3s linear forwards;
     animation-delay: calc(var(--cell-index) * 50ms);
+    opacity: 0;
+  }
+
+  g.is-large-complete rect {
+    animation: completeBackground 0s linear forwards;
+    animation-delay: calc(var(--cell-index) * 10ms);
+  }
+
+  g.is-large-complete text {
+    animation: completeText 0.1s linear forwards;
+    animation-delay: calc(var(--cell-index) * 10ms);
     opacity: 0;
   }
 
