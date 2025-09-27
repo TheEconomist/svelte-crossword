@@ -46,6 +46,28 @@
   );
   onMount(() => {
     isMobile = checkMobile();
+
+    // Prevent scrolling during keyboard interactions on touchscreen
+    if (isMobile && "ontouchstart" in window) {
+      let keyboardActive = false;
+
+      const preventScroll = (e) => keyboardActive && e.preventDefault();
+
+      const handleKeyboardTouch = (e) => {
+        if (e.target.closest(".keyboard")) {
+          keyboardActive = true;
+          setTimeout(() => (keyboardActive = false), 150);
+        }
+      };
+
+      document.addEventListener("touchmove", preventScroll, { passive: false });
+      document.addEventListener("touchstart", handleKeyboardTouch);
+
+      return () => {
+        document.removeEventListener("touchmove", preventScroll);
+        document.removeEventListener("touchstart", handleKeyboardTouch);
+      };
+    }
   });
 
   function updateSecondarilyFocusedCells() {
@@ -289,6 +311,7 @@
   .keyboard {
     margin-top: 1rem;
     order: -1;
+    /* contain: layout style paint; */
   }
 
   /* overide svelte-keyboard default font */
