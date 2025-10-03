@@ -22,7 +22,7 @@
 
 <div class="bar {custom}">
   <div class="bar-inner">
-    <button on:click="{() => dispatch('nextClue', currentClue.index - 1)}">
+    <button on:click={() => dispatch("nextClue", currentClue.index - 1)}>
       <svg
         width="24"
         height="24"
@@ -50,7 +50,7 @@
       {/if}
     </div>
 
-    <button on:click="{() => dispatch('nextClue', currentClue.index + 1)}">
+    <button on:click={() => dispatch("nextClue", currentClue.index + 1)}>
       <svg
         width="24"
         height="24"
@@ -92,7 +92,6 @@
 
   .currentClue {
     margin-right: 0.5rem;
-    text-transform: capitalize;
     font-weight: 600;
   }
 
