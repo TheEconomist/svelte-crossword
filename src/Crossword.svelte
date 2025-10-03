@@ -61,6 +61,15 @@
     if (cells.length === 0) {
       cells = createCells(originalClues);
     }
+
+    // Check if there's an across clue with number 1, otherwise default to down
+    const hasAcrossClue1 = clues.some(
+      (clue) => clue.direction === "across" && clue.number === 1,
+    );
+    if (!hasAcrossClue1) {
+      focusedDirection = "down";
+    }
+
     reset();
   };
 
