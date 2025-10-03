@@ -40,7 +40,8 @@
     <div class="clueContainer">
       <p>
         <span class="currentClue"
-          >{currentClue.number + " " + currentClue.direction}</span
+          >{currentClue.number +
+            (currentClue.direction === "down" ? "d" : "a")}</span
         >{@html highlightStrongTags(clue)}
       </p>
       {#if showExplanation}
