@@ -221,6 +221,15 @@
 
   $: focusedClueNumbers = focusedCell.clueNumbers || {};
 
+  // If the focused cell doesn't have a clue for the current direction,
+  // switch to the available direction to avoid undefined clue numbers.
+  $: if (focusedClueNumbers && focusedClueNumbers[focusedDirection] == null) {
+    const otherDirection = focusedDirection === "across" ? "down" : "across";
+    if (focusedClueNumbers[otherDirection] != null) {
+      focusedDirection = otherDirection;
+    }
+  }
+
   $: currentClue =
     clues.find(
       (c) =>

@@ -39,10 +39,13 @@
     </button>
     <div class="clueContainer">
       <p>
-        <span class="currentClue"
-          >{currentClue.number +
-            (currentClue.direction === "down" ? "d" : "a")}</span
-        >{@html highlightStrongTags(clue)}
+        {#if currentClue && currentClue.number}
+          <span class="currentClue"
+            >{currentClue.number +
+              (currentClue.direction === "down" ? "d" : "a")}</span
+          >
+        {/if}
+        {@html highlightStrongTags(clue || "")}
       </p>
       {#if showExplanation}
         <div class="explanationContainer">

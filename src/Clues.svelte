@@ -21,15 +21,15 @@
   }
 </script>
 
-<section class="clues" class:stacked class:is-loaded="{isLoaded}" class:small>
+<section class="clues" class:stacked class:is-loaded={isLoaded} class:small>
   <div class="clues--stacked {small ? 'small' : ''}">
     {#each ["across", "down"] as direction}
       <ClueList
         {clueType}
         {direction}
         {focusedClueNumbers}
-        clues="{clues.filter((d) => d.direction === direction)}"
-        isDirectionFocused="{focusedDirection === direction}"
+        clues={clues.filter((d) => d.direction === direction)}
+        isDirectionFocused={focusedDirection === direction}
         {isDisableHighlight}
         {onClueFocus}
       />
@@ -42,8 +42,8 @@
         {clueType}
         {direction}
         {focusedClueNumbers}
-        clues="{clues.filter((d) => d.direction === direction)}"
-        isDirectionFocused="{focusedDirection === direction}"
+        clues={clues.filter((d) => d.direction === direction)}
+        isDirectionFocused={focusedDirection === direction}
         {isDisableHighlight}
         {onClueFocus}
       />
