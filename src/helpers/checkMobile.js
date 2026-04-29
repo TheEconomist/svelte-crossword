@@ -11,9 +11,9 @@ export default function checkMobile() {
     windows: () => navigator.userAgent.match(/IEMobile/i)
   };
 
-  // Check for touch capability + small screen (covers cases where user agent detection fails)
+  // coarse pointer = touch-primary device (phone or tablet, any orientation/size)
   const hasTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-  const isSmallScreen = window.innerWidth <= 1024;
+  const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
 
   return (
     devices.android() ||
@@ -21,6 +21,6 @@ export default function checkMobile() {
     devices.ios() ||
     devices.opera() ||
     devices.windows() ||
-    (hasTouch && isSmallScreen)
+    (hasTouch && isCoarsePointer)
   );
 }
